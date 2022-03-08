@@ -8,9 +8,9 @@ services:
       - .env
 
   backend:
-   build:
-     context: ../backend/foodgram
-     dockerfile: Dockerfile
+    build:
+      context: ../backend/foodgram
+      dockerfile: Dockerfile
     # image: добавить образ бэка из DockerHub
     restart: always
     volumes:
@@ -24,9 +24,9 @@ services:
       - .env
 
   frontend:
-   build:
-     context: ../frontend
-     dockerfile: Dockerfile
+    build:
+      context: ../frontend
+      dockerfile: Dockerfile
     # image: добавить образ фронта из DockerHub
     volumes:
       - ../frontend/:/app/result_build/
