@@ -116,7 +116,7 @@ class Favorite(models.Model):
         verbose_name_plural = 'Избранное'
 
     def __str__(self):
-        return f'{self.user} / {self.recipes}'
+        return f'{self.user} / {self.recipe}'
 
 
 class ShoppingCart(models.Model):
