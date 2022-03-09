@@ -9,7 +9,7 @@ from djoser.serializers import (
 from djoser.serializers import UserSerializer as DjoserUserSerializer
 from drf_extra_fields.fields import Base64ImageField
 from rest_framework import serializers, validators
-from rest_framework.serializers import ReadOnlyFieldcd
+from rest_framework.serializers import ReadOnlyField
 from rest_framework.validators import UniqueTogetherValidator
 
 from recipes.models import (
