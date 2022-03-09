@@ -118,16 +118,16 @@ class FavoriteCreateDeleteView(APIView):
         recipe = get_object_or_404(Recipe, id=id)
         user = request.user
 
-        if Favorite.objects.filter(user=user, recipes=recipe).exists():
+        if Favorite.objects.filter(user=user, recipe=recipe).exists():
             return Response(
                 "Вы уже добавили рецепт в избранное.",
             )
         Favorite.objects.get_or_create(
-            recipes=recipe,
+            recipe=recipe,
             user=user,
         )
 
-        favorite = Favorite.objects.get(recipes=recipe, user=user)
+        favorite = Favorite.objects.get(recipe=recipe, user=user)
         serializer = FavoriteSerializer(favorite)
 
         return Response(serializer.data, status=status.HTTP_200_OK)
@@ -136,7 +136,7 @@ class FavoriteCreateDeleteView(APIView):
         recipe = get_object_or_404(Recipe, id=id)
         user = request.user
 
-        favorite = get_object_or_404(Favorite, recipes=recipe, user=user)
+        favorite = get_object_or_404(Favorite, recipe=recipe, user=user)
         favorite.delete()
         return Response(status=status.HTTP_200_OK)
 
