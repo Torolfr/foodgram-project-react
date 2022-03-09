@@ -231,7 +231,7 @@ class RecipeModelViewSet(viewsets.ModelViewSet):
                 f'{purchase_list[item]["measurement_unit"]}\n'
             )
         wishlist.append("\n")
-        wishlist.append("FoodGram, 2021")
+        wishlist.append("FoodGram, 2022")
         response = HttpResponse(wishlist, "Content-Type: application/pdf")
         response["Content-Disposition"] = 'attachment; filename="wishlist.pdf"'
         return response
