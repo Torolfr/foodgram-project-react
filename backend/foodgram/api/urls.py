@@ -12,27 +12,27 @@ from .views import (
 )
 
 router = DefaultRouter()
-router.register("users", UserViewSet, "users")
-router.register("tags", TagApiViewSet, "tags")
-router.register("ingredients", IngredientApiViewSet, "ingredients")
-router.register("recipes", RecipeModelViewSet, "recipes")
+router.register('users', UserViewSet, 'users')
+router.register('tags', TagApiViewSet, 'tags')
+router.register('ingredients', IngredientApiViewSet, 'ingredients')
+router.register('recipes', RecipeModelViewSet, 'recipes')
 
 
 urlpatterns = [
-    path("", include(router.urls)),
+    path('', include(router.urls)),
     path(
-        "users/<int:id>/subscribe/",
+        'users/<int:id>/subscribe/',
         SubscribeCreateDeleteView.as_view(),
-        name="subscribe",
+        name='subscribe',
     ),
     path(
-        "recipes/<int:id>/favorite/",
+        'recipes/<int:id>/favorite/',
         FavoriteCreateDeleteView.as_view(),
-        name="favorite",
+        name='favorite',
     ),
     path(
-        "recipes/<int:id>/shopping_cart/",
+        'recipes/<int:id>/shopping_cart/',
         ShoppingCartCreateDeleteView.as_view(),
-        name="shopping_cart",
+        name='shopping_cart',
     ),
 ]
