@@ -30,6 +30,7 @@ class User(AbstractUser):
         verbose_name='Фамилия',
         max_length=150
     )
+    is_staff = models.BooleanField(default=False)
 
     class Meta:
         verbose_name = 'Пользователь'
