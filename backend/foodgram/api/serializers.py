@@ -268,9 +268,9 @@ class CreateRecipeSerializer(serializers.ModelSerializer):
 
 class FavoriteSerializer(serializers.ModelSerializer):
 
-    name = ReadOnlyField(source='recipes.name')
-    cooking_time = ReadOnlyField(source='recipes.cooking_time')
-    image = Base64ImageField(read_only=True, source='recipes.image')
+    name = ReadOnlyField(source='recipe.name')
+    cooking_time = ReadOnlyField(source='recipe.cooking_time')
+    image = Base64ImageField(read_only=True, source='recipe.image')
 
     class Meta:
         model = Favorite
