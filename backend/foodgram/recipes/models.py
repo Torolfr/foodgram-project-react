@@ -39,7 +39,7 @@ class Ingredient(models.Model):
         ordering = ('name',)
 
     def __str__(self):
-        return f'{self.name}, {self.measurement_unit}'
+        return f'{self.name} {self.measurement_unit}'
 
 
 class Recipe(models.Model):
@@ -73,6 +73,12 @@ class Recipe(models.Model):
         verbose_name = 'Рецепт'
         verbose_name_plural = 'Рецепты'
         ordering = ('-id',)
+        constraints = (
+            models.CheckConstraint(
+                check=models.Q(cooking_time__gte=1),
+                name='%(app_label)s_%(class)s_cooking_time__gte=1'
+            ),
+        )
 
     def __str__(self):
         return f'{self.name}. Автор: {self.author.username}'
@@ -83,11 +89,12 @@ class IngredientRecipe(models.Model):
     ingredient = models.ForeignKey(
         Ingredient,
         on_delete=models.CASCADE,
-        null=True,
+        related_name='recipe_ingredient',
         verbose_name='Ингредиент',
     )
     recipe = models.ForeignKey(
         Recipe,
+        related_name='recipe_ingredient',
         on_delete=models.CASCADE,
         verbose_name='Рецепт',
     )
@@ -102,11 +109,13 @@ class Favorite(models.Model):
     """Модель для избранных рецептов пользователя."""
     recipe = models.ForeignKey(
         Recipe,
+        related_name='favorites',
         on_delete=models.CASCADE,
         verbose_name='Рецепт',
     )
     user = models.ForeignKey(
         User,
+        related_name='favorites',
         on_delete=models.CASCADE,
         verbose_name='Пользователь'
     )
@@ -114,18 +123,28 @@ class Favorite(models.Model):
     class Meta:
         verbose_name = 'Избранное'
         verbose_name_plural = 'Избранное'
+        constraints = (
+            models.UniqueConstraint(
+                name='%(app_label)s_%(class)s_unique_relationships',
+                fields=('recipe', 'user'),
+            ),
+        )
 
     def __str__(self):
-        return f'{self.user} / {self.recipe}'
+        return f'{self.user}/{self.recipe}'
 
 
 class ShoppingCart(models.Model):
     """Модель для списка покупок пользователя."""
     recipe = models.ForeignKey(
-        Recipe, on_delete=models.CASCADE, verbose_name='Рецепт'
+        Recipe,
+        related_name='cart',
+        on_delete=models.CASCADE,
+        verbose_name='Рецепт'
     )
     user = models.ForeignKey(
         User,
+        related_name='cart',
         on_delete=models.CASCADE,
         verbose_name='Пользователь'
     )

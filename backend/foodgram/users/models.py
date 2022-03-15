@@ -1,44 +1,7 @@
-from django.contrib.auth.models import AbstractUser
+from django.contrib.auth import get_user_model
 from django.db import models
 
-
-class User(AbstractUser):
-    """Кастомная модель пользователя."""
-    email = models.EmailField(
-        verbose_name='Адрес электронной почты',
-        max_length=254,
-        unique=True,
-    )
-    username = models.CharField(
-        verbose_name='Имя пользователя',
-        max_length=150,
-        unique=True,
-        validators=(AbstractUser.username_validator,),
-        error_messages={
-            'unique': 'Пользователь с таким именем уже существует.',
-        },
-    )
-    password = models.CharField(
-        verbose_name='Пароль',
-        max_length=150
-    )
-    first_name = models.CharField(
-        verbose_name='Имя',
-        max_length=150
-    )
-    last_name = models.CharField(
-        verbose_name='Фамилия',
-        max_length=150
-    )
-    is_staff = models.BooleanField(default=False)
-
-    class Meta:
-        verbose_name = 'Пользователь'
-        verbose_name_plural = 'Пользователи'
-        ordering = ('username',)
-
-    def __str__(self):
-        return f'{self.username}: {self.email}'
+User = get_user_model()
 
 
 class Follow(models.Model):
@@ -59,6 +22,16 @@ class Follow(models.Model):
     class Meta:
         verbose_name = 'Подписки'
         verbose_name_plural = 'Подписки'
+        constraints = (
+            models.UniqueConstraint(
+                name='%(app_label)s_%(class)s_unique_relationships',
+                fields=('user', 'author'),
+            ),
+            models.CheckConstraint(
+                name='%(app_label)s_%(class)s_prevent_self_follow',
+                check=~models.Q(user=models.F('author')),
+            ),
+        )
 
     def __str__(self):
         return f'{self.user} / {self.author}'
