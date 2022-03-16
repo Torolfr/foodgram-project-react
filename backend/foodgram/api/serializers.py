@@ -140,12 +140,11 @@ class RecipeSerializer(serializers.ModelSerializer):
                 )
         data['ingredients'] = ingredients
 
-        cooking_time = self.initial_data.get('cooking_time')
+        cooking_time = data['cooking_time']
         if int(cooking_time) < 0:
             raise serializers.ValidationError(
                 'Время приготовления должно больше нуля'
             )
-        data['cooking_time'] = cooking_time
         return data
 
     def create_ingredients(self, ingredients, recipe):
@@ -166,7 +165,7 @@ class RecipeSerializer(serializers.ModelSerializer):
         return recipe
 
     def update(self, recipe, validated_data):
-        if 'ingredients' in self.initial_data:
+        if 'ingredients' in self.validated_data:
             ingredients = validated_data.pop('ingredients')
             recipe.ingredients.clear()
             self.create_ingredients(ingredients, recipe)

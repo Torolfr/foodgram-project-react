@@ -13,6 +13,7 @@
 - python 3.7
 - django 3.2.12
 - djangorestframework 3.13.1
+- djoser
 - nginx
 - gunicorn
 - PostgreSQL

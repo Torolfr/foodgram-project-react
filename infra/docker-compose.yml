@@ -11,7 +11,6 @@ services:
     build:
       context: ../backend/foodgram
       dockerfile: Dockerfile
-    # image: добавить образ бэка из DockerHub
     restart: always
     volumes:
       - static_value:/app/static/
@@ -27,7 +26,6 @@ services:
     build:
       context: ../frontend
       dockerfile: Dockerfile
-    # image: добавить образ фронта из DockerHub
     volumes:
       - ../frontend/:/app/result_build/
     depends_on:
