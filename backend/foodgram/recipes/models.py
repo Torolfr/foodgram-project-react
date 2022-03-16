@@ -75,8 +75,8 @@ class Recipe(models.Model):
         ordering = ('-id',)
         constraints = (
             models.CheckConstraint(
-                check=models.Q(cooking_time__gte=1),
-                name='%(app_label)s_%(class)s_cooking_time__gte=1'
+                check=models.Q(cooking_time__gte=0),
+                name='%(app_label)s_%(class)s_cooking_time__gte=0'
             ),
         )
 
@@ -103,6 +103,10 @@ class IngredientRecipe(models.Model):
     class Meta:
         verbose_name = 'Ингредиент рецепта'
         verbose_name_plural = 'Ингредиенты рецептов'
+        constraints = (
+            models.UniqueConstraint(fields=['ingredient', 'recipe'],
+                                    name='unique_ingredients_recipe'),
+        )
 
 
 class Favorite(models.Model):
@@ -152,6 +156,11 @@ class ShoppingCart(models.Model):
     class Meta:
         verbose_name = 'Список покупок'
         verbose_name_plural = 'Списки покупок'
+        constraints = (
+            models.UniqueConstraint(
+                fields=['recipe', 'user'],
+                name='unique_user_recipe_in_cart'),
+        )
 
     def __str__(self):
         return f'{self.user} / {self.recipe}'
