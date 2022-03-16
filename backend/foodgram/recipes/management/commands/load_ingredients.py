@@ -5,10 +5,10 @@ from recipes.models import Ingredient
 
 
 class Command(BaseCommand):
-    help = 'Загружает таблицу ингридиентов из csv-файла'
+    help = 'Загружает таблицу ингредиентов из csv-файла'
 
     def handle(self, *args, **options):
-        with open('recipes/data/ingredients.csv', encoding='utf-8') as file:
+        with open('../../data/ingredients.csv', encoding='utf-8') as file:
             data_reader = csv.reader(file)
             for row in data_reader:
                 name, unit = row
