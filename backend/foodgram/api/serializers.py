@@ -121,7 +121,7 @@ class RecipeSerializer(serializers.ModelSerializer):
         ingredients = self.initial_data.get('ingredients')
         if not ingredients or len(ingredients) < 1:
             raise serializers.ValidationError(
-                'Минимум должен быть один ингридиент для рецепта'
+                'Минимум должен быть один ингредиент для рецепта'
             )
         ingredient_list = []
         for ingredient_item in ingredients:
@@ -130,7 +130,7 @@ class RecipeSerializer(serializers.ModelSerializer):
             )
             if ingredient in ingredient_list:
                 raise serializers.ValidationError(
-                    'Ингридиенты не должны повторяться'
+                    'Ингредиенты не должны повторяться'
                 )
             ingredient_list.append(ingredient)
             if int(ingredient_item['amount']) <= 0:
