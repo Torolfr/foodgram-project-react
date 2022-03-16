@@ -26,16 +26,16 @@ class Tag(models.Model):
 
 
 class Ingredient(models.Model):
-    """Модель ингридиентов для рецепта."""
-    name = models.CharField(verbose_name='Ингридиент', max_length=256)
+    """Модель ингредиентов для рецепта."""
+    name = models.CharField(verbose_name='Ингредиент', max_length=256)
     measurement_unit = models.CharField(
         verbose_name='Единица измерения',
         max_length=24
     )
 
     class Meta:
-        verbose_name = 'Ингридиент'
-        verbose_name_plural = 'Ингридиенты'
+        verbose_name = 'Ингредиент'
+        verbose_name_plural = 'Ингредиенты'
         ordering = ('name',)
 
     def __str__(self):
@@ -85,7 +85,7 @@ class Recipe(models.Model):
 
 
 class IngredientRecipe(models.Model):
-    """Модель для связывания количества ингридиентов в рецепте."""
+    """Модель для связывания количества ингредиентов в рецепте."""
     ingredient = models.ForeignKey(
         Ingredient,
         on_delete=models.CASCADE,
@@ -101,8 +101,8 @@ class IngredientRecipe(models.Model):
     amount = models.PositiveIntegerField(verbose_name='Количество')
 
     class Meta:
-        verbose_name = 'Ингридиент рецепта'
-        verbose_name_plural = 'Ингридиенты рецептов'
+        verbose_name = 'Ингредиент рецепта'
+        verbose_name_plural = 'Ингредиенты рецептов'
 
 
 class Favorite(models.Model):
