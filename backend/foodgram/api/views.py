@@ -4,22 +4,23 @@ from django.http import HttpResponse
 from django.utils import timezone
 from django_filters.rest_framework import DjangoFilterBackend
 from djoser.views import UserViewSet
-from recipes.models import (Favorite, Ingredient, IngredientRecipe, Recipe,
-                            ShoppingCart, Tag)
 from rest_framework import status, viewsets
 from rest_framework.decorators import action
 from rest_framework.generics import get_object_or_404
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.viewsets import ReadOnlyModelViewSet
-from users.models import Follow
 
 from api.filters import IngredientSearchFilter, RecipeFilter
 from api.paginators import LimitPageNumberPagination
 from api.permissions import IsAdminOrReadOnly, IsAuthorOrReadOnly
-from api.serializers import (FollowSerializer, IngredientSerializer,
-                             RecipeSerializer, ShortRecipeSerializer,
+from api.serializers import (CreateUpdateRecipeSerializer,
+                             FollowSerializer, IngredientSerializer,
+                             ListRecipeSerializer, ShortRecipeSerializer,
                              TagSerializer)
+from recipes.models import (Favorite, Ingredient, IngredientRecipe, Recipe,
+                            ShoppingCart, Tag)
+from users.models import Follow
 
 User = get_user_model()
 
@@ -93,11 +94,15 @@ class IngredientsViewSet(ReadOnlyModelViewSet):
 
 class RecipeViewSet(viewsets.ModelViewSet):
     queryset = Recipe.objects.all()
-    serializer_class = RecipeSerializer
     pagination_class = LimitPageNumberPagination
     filter_backends = (DjangoFilterBackend,)
     filter_class = RecipeFilter
     permission_classes = (IsAuthorOrReadOnly,)
+
+    def get_serializer_class(self):
+        if (self.action == 'list' or self.action == 'retrieve'):
+            return ListRecipeSerializer
+        return CreateUpdateRecipeSerializer
 
     def perform_create(self, serializer):
         serializer.save(author=self.request.user)
