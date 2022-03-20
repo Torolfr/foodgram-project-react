@@ -75,5 +75,5 @@ sudo docker-compose exec -T backend python manage.py createsuperuser  # Созд
 sudo docker-compose exec -T backend python manage.py collectstatic --no-input  # Собрать статику
 docker-compose exec backend python manage.py load_data # Загрузка ингредиентов
 ```
->Проект по http://178.154.195.108
+>Проект доутупен по http://178.154.195.108
 >Admin652:master12345678
