@@ -73,7 +73,7 @@ sudo docker-compose exec -T backend python manage.py makemigrations  # Созд�
 sudo docker-compose exec -T backend python manage.py migrate --noinput  # Применить миграции
 sudo docker-compose exec -T backend python manage.py createsuperuser  # Создать суперпользователя
 sudo docker-compose exec -T backend python manage.py collectstatic --no-input  # Собрать статику
-docker-compose exec backend python manage.py load_data # Загрузка ингредиентов
+docker-compose exec backend python manage.py load_ingredients # Загрузка ингредиентов
 ```
 >Проект доутупен по http://178.154.195.108
 >Admin652:master12345678
