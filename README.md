@@ -63,17 +63,5 @@ docker-compose exec backend -T infra_backend_1 python manage.py load_ingredients
 Проект будет доступен по 
 [адресу](http://localhost/recipes)
 
-# Загрузка на боевой сервер
-Для полноценной работы загрузите на сервер директорию /docs и /infra
-В директории /infra измените файл docker-compose.yml и nginx.conf на конфигурации из директории /site. Создайте файл .env с переменными. Не забудьте изменить server_name на ваш публичный IPv4.
-# Выполните команды
-```
-docker-compose up -d --build  # Запустите docker-compose
-sudo docker-compose exec -T backend python manage.py makemigrations  # Создать миграции миграции
-sudo docker-compose exec -T backend python manage.py migrate --noinput  # Применить миграции
-sudo docker-compose exec -T backend python manage.py createsuperuser  # Создать суперпользователя
-sudo docker-compose exec -T backend python manage.py collectstatic --no-input  # Собрать статику
-docker-compose exec backend python manage.py load_ingredients # Загрузка ингредиентов
-```
 >Проект доступен по http://178.154.195.108
 >Torolfr652:master12345678
