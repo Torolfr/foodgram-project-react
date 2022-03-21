@@ -1,5 +1,5 @@
 # Дипломный проект | Yandex Practicum #
->Проект выполнил Ситнов Руслан Сергеевич *[Ссылка на сайт](http://178.154.199.160/recipes)*
+>Проект выполнил Данилов Сергей Юрьевич *[Ссылка на сайт](http://178.154.195.108/recipes)*
 ##
 [![Python](https://img.shields.io/badge/-Python-464646?style=flat-square&logo=Python)](https://www.python.org/)
 [![Django](https://img.shields.io/badge/-Django-464646?style=flat-square&logo=Django)](https://www.djangoproject.com/)
@@ -41,7 +41,7 @@ python3 -m venv venv # создание окружения
 ```
 
 ##Установка переменных окружения
-Для работы с базой данных создайте .env в /backend с переменными
+Для работы с базой данных создайте .env в /infra/ с переменными
 ```
 DB_ENGINE=django.db.backends.postgresql # указываем, что работаем с postgresql
 DB_NAME=postgres # имя базы данных
