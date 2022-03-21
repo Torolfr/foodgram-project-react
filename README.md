@@ -17,7 +17,7 @@ Foodgram - Продуктовый помощник.
 ## Подготовка и запуск проекта
 ##### Склонировать репозиторий на локальную машину:
 ```
-git clone https://github.com/Fitoyaz/foodgram-project-react.git
+git clone https://github.com/Torolfr/foodgram-project-react
 ```
 
 Установите docker на сервер:
@@ -41,7 +41,7 @@ python3 -m venv venv # создание окружения
 ```
 
 ##Установка переменных окружения
-Для работы с базой данных создайте .env в /infra/ с переменными
+Для работы с базой данных создайте .env в /infra/ с переменными:
 ```
 DB_ENGINE=django.db.backends.postgresql # указываем, что работаем с postgresql
 DB_NAME=postgres # имя базы данных
@@ -49,7 +49,7 @@ POSTGRES_USER=postgres # логин для подключения к базе д
 POSTGRES_PASSWORD=postgres # пароль для подключения к БД (установите свой)
 DB_HOST=db # название сервиса (контейнера)
 DB_PORT=5432 # порт для подключения к БД
-SECRET_KEY=* # Добавить SECRET_KEY из настроек
+SECRET_KEY=* # Добавить SECRET_KEY из settings.py
 ```
 ##Запуск приложения в Docker
 ```
@@ -58,9 +58,9 @@ sudo docker-compose exec -T infra_backend_1 python manage.py makemigrations  # �
 sudo docker-compose exec -T infra_backend_1 python manage.py migrate --noinput  # Применить миграции
 sudo docker-compose exec -T infra_backend_1 python manage.py createsuperuser  # Создать суперпользователя
 sudo docker-compose exec -T infra_backend_1 python manage.py collectstatic --no-input  # Собрать статику
-docker-compose exec backend -T infra_backend_1 python manage.py load_data # Загрузка ингредиентов
+docker-compose exec backend -T infra_backend_1 python manage.py load_ingredients # Загрузка ингредиентов
 ```
-Проект будет вам доступен по 
+Проект будет доступен по 
 [адресу](http://localhost/recipes)
 
 # Загрузка на боевой сервер
@@ -75,5 +75,5 @@ sudo docker-compose exec -T backend python manage.py createsuperuser  # Созд
 sudo docker-compose exec -T backend python manage.py collectstatic --no-input  # Собрать статику
 docker-compose exec backend python manage.py load_ingredients # Загрузка ингредиентов
 ```
->Проект доутупен по http://178.154.195.108
->Admin652:master12345678
+>Проект доступен по http://178.154.195.108
+>Torolfr652:master12345678
